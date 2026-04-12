@@ -8,115 +8,116 @@
 </head>
 <style>
     /* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Body */
-body {
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Heading */
-h1 {
-    color: white;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Form Box */
-form {
-    background: white;
-    padding: 30px;
-    width: 380px;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.6s ease-in-out;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    /* Body */
+    body {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
-}
 
-/* Form groups */
-form div {
-    margin-bottom: 18px;
-}
+    /* Heading */
+    h1 {
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+    }
 
-/* Labels */
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #335;
-}
+    /* Form Box */
+    form {
+        background: white;
+        padding: 30px;
+        width: 380px;
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.6s ease-in-out;
+    }
 
-/* Inputs */
-input,
-select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
+    /* Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-/* Focus effect */
-input:focus,
-select:focus {
-    border-color: #4facfe;
-    box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
-}
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-/* Radio buttons */
-input[type="radio"] {
-    width: auto;
-    margin-right: 5px;
-}
+    /* Form groups */
+    form div {
+        margin-bottom: 18px;
+    }
 
-/* Inline radio labels */
-input[type="radio"] + label {
-    display: inline;
-    margin-right: 15px;
-    font-weight: normal;
-}
+    /* Labels */
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #335;
+    }
 
-/* Button */
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    /* Inputs */
+    input,
+    select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+    }
 
-/* Button hover */
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
+    /* Focus effect */
+    input:focus,
+    select:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+    }
+
+    /* Radio buttons */
+    input[type="radio"] {
+        width: auto;
+        margin-right: 5px;
+    }
+
+    /* Inline radio labels */
+    input[type="radio"]+label {
+        display: inline;
+        margin-right: 15px;
+        font-weight: normal;
+    }
+
+    /* Button */
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* Button hover */
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 </style>
 
 <body>
@@ -162,11 +163,19 @@ button:hover {
             </div>
             <button type="submit">Submit</button>
     </form>
+
     <script>
         const scriptURL = "https://script.google.com/macros/s/AKfycbzRg1NwyfUWzGkrAaQxSpzPODoFuacEjnPmH7R3WpP9qXu59VSNihGezunjwibhpMZ_xA/exec";
 
-        document.querySelector("form").addEventListener("submit", function (e) {
+        const form = document.querySelector("form");
+        const submitBtn = document.querySelector("button");
+
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
+
+            // 🚫 Prevent double click
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Submitting...";
 
             let genderInput = document.querySelector('input[name="gender"]:checked');
 
@@ -186,14 +195,22 @@ button:hover {
             })
                 .then(response => {
                     alert("Form submitted successfully!");
-                    document.querySelector("form").reset();
+                    form.reset();
+
+                    // ✅ Enable again after success
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Submit";
                 })
                 .catch(error => {
                     alert("Error submitting form");
-                    console.error(error);
+
+                    // ✅ Enable again if error
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Submit";
                 });
         });
     </script>
+
 
 </body>
 
