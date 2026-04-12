@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms - Lets learn it</title>
+</head>
+<style>
+    /* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body */
+body {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Heading */
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Box */
+form {
+    background: white;
+    padding: 30px;
+    width: 380px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form groups */
+form div {
+    margin-bottom: 18px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #335;
+}
+
+/* Inputs */
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+/* Focus effect */
+input:focus,
+select:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+}
+
+/* Radio buttons */
+input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+/* Inline radio labels */
+input[type="radio"] + label {
+    display: inline;
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+</style>
+
+<body>
+    <h1>Form to apply for BCA Course </h1>
+    <form method="post">
+        <div>
+            <label for="name">Enter your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required autofocus>
+        </div>
+        <div>
+            <label for="gender">Gender</label>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female" required>
+            <label for="female">Female</label>
+        </div>
+
+        <div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter Your phone" pattern="[0-9]{10}" required>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+            </div>
+            <div>
+                <label for="collegename">College Name</label>
+                <input type="text" id="collegename" name="collegename" placeholder="Enter Your College Name">
+            </div>
+            <div>
+
+                <label for="stream">Choose Your Stream</label>
+                <select id="stream" name="stream">
+                    <option value="Science">Science</option>
+                    <option value="commerce">Commerce</option>
+                    <option value="arts">Arts</option>
+                </select>
+            </div>
+            <div>
+                <label for="percentage">Percentage</label>
+                <input type="number" id="percentage" name="percentage" placeholder="Enter Your Percentage" min="0"
+                    max="100" step="1">
+
+            </div>
+            <button type="submit">Submit</button>
+    </form>
+    <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzRg1NwyfUWzGkrAaQxSpzPODoFuacEjnPmH7R3WpP9qXu59VSNihGezunjwibhpMZ_xA/exec";
+
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let genderInput = document.querySelector('input[name="gender"]:checked');
+
+            let data = {
+                name: document.getElementById("name").value,
+                gender: genderInput ? genderInput.value : "",
+                phone: document.getElementById("phone").value,
+                email: document.getElementById("email").value,
+                collegename: document.getElementById("collegename").value,
+                stream: document.getElementById("stream").value,
+                percentage: document.getElementById("percentage").value
+            };
+
+            fetch(scriptURL, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    alert("Form submitted successfully!");
+                    document.querySelector("form").reset();
+                })
+                .catch(error => {
+                    alert("Error submitting form");
+                    console.error(error);
+                });
+        });
+    </script>
+
+</body>
+
+</html>
