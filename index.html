@@ -1,217 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forms - Lets learn it</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civil Engineer Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-    /* Reset */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+    font-family:'Inter',sans-serif;
+    color:#222;
+}
+
+/* LOADER */
+#loader{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    color:white;
+    transition:0.5s;
+}
+
+.spinner{
+    width:60px;height:60px;
+    border:6px solid #444;
+    border-top:6px solid #f4b400;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* NAVBAR */
+.navbar{
+    position:fixed;
+    width:100%;
+    background:#111;
+    padding:15px 5%;
+    z-index:1000;
+}
+
+.nav-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:auto;
+    color:white;
+}
+
+.nav-menu{
+    display:flex;
+    gap:20px;
+    list-style:none;
+}
+
+.nav-link{
+    color:white;
+    text-decoration:none;
+}
+
+.nav-link:hover{
+    color:#f4b400;
+}
+
+/* HAMBURGER */
+.hamburger{
+    display:none;
+    flex-direction:column;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:25px;height:3px;
+    background:white;
+    margin:4px 0;
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e') center/cover;
+    color:white;
+    text-align:center;
+    padding-top:70px;
+}
+
+.hero h1{
+    background:rgba(0,0,0,0.6);
+    padding:20px;
+}
+
+/* SECTION */
+.section{
+    padding:100px 5%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2.5rem;
+}
+
+/* ABOUT */
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+.profile-img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* SERVICES */
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.service-box{
+    padding:20px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    text-align:center;
+    transition:0.3s;
+}
+
+.service-box:hover{
+    transform:translateY(-8px);
+}
+
+/* PROJECTS */
+.projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.project-item{
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.project-item img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+/* CONTACT */
+.contact{
+    background:#222;
+    color:white;
+    text-align:center;
+}
+
+.contact-form{
+    max-width:500px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.contact-form input,
+.contact-form textarea{
+    padding:10px;
+    border:none;
+    border-radius:5px;
+}
+
+.contact-form button{
+    padding:10px;
+    background:#f4b400;
+    border:none;
+    cursor:pointer;
+}
+
+/* ANIMATION */
+.fade-in{
+    opacity:0;
+    transform:translateY(40px);
+    transition:0.8s;
+}
+
+.fade-in.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .nav-menu{
+        position:absolute;
+        top:60px;
+        left:-100%;
+        flex-direction:column;
+        width:100%;
+        background:#111;
+        text-align:center;
+        transition:0.3s;
+        padding:20px 0;
     }
 
-    /* Body */
-    body {
-        background: linear-gradient(135deg, #4facfe, #00f2fe);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .nav-menu.active{
+        left:0;
     }
 
-    /* Heading */
-    h1 {
-        color: white;
-        margin-bottom: 20px;
-        text-align: center;
+    .hamburger{
+        display:flex;
     }
 
-    /* Form Box */
-    form {
-        background: white;
-        padding: 30px;
-        width: 380px;
-        border-radius: 12px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.6s ease-in-out;
+    .about-grid{
+        grid-template-columns:1fr;
     }
-
-    /* Animation */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Form groups */
-    form div {
-        margin-bottom: 18px;
-    }
-
-    /* Labels */
-    label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: 600;
-        color: #335;
-    }
-
-    /* Inputs */
-    input,
-    select {
-        width: 100%;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        outline: none;
-        transition: all 0.3s ease;
-        font-size: 14px;
-    }
-
-    /* Focus effect */
-    input:focus,
-    select:focus {
-        border-color: #4facfe;
-        box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
-    }
-
-    /* Radio buttons */
-    input[type="radio"] {
-        width: auto;
-        margin-right: 5px;
-    }
-
-    /* Inline radio labels */
-    input[type="radio"]+label {
-        display: inline;
-        margin-right: 15px;
-        font-weight: normal;
-    }
-
-    /* Button */
-    button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: linear-gradient(135deg, #4facfe, #00f2fe);
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    /* Button hover */
-    button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
+}
 </style>
+</head>
 
 <body>
-    <h1>Form to apply for BCA Course </h1>
-    <form method="post">
-        <div>
-            <label for="name">Enter your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required autofocus>
-        </div>
-        <div>
-            <label for="gender">Gender</label>
-            <input type="radio" id="male" name="gender" value="male" required>
-            <label for="male">Male</label>
-            <input type="radio" id="female" name="gender" value="female" required>
-            <label for="female">Female</label>
-        </div>
 
-        <div>
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter Your phone" pattern="[0-9]{10}" required>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
-            </div>
-            <div>
-                <label for="collegename">College Name</label>
-                <input type="text" id="collegename" name="collegename" placeholder="Enter Your College Name">
-            </div>
-            <div>
+<!-- LOADER -->
+<div id="loader">
+<div class="spinner"></div>
+</div>
 
-                <label for="stream">Choose Your Stream</label>
-                <select id="stream" name="stream">
-                    <option value="Science">Science</option>
-                    <option value="commerce">Commerce</option>
-                    <option value="arts">Arts</option>
-                </select>
-            </div>
-            <div>
-                <label for="percentage">Percentage</label>
-                <input type="number" id="percentage" name="percentage" placeholder="Enter Your Percentage" min="0"
-                    max="100" step="1">
+<!-- NAVBAR -->
+<nav class="navbar">
+<div class="nav-container">
 
-            </div>
-            <button type="submit">Submit</button>
-    </form>
+<h2>Civil Engineer</h2>
 
-    <script>
-        const scriptURL = "https://script.google.com/macros/s/AKfycbzRg1NwyfUWzGkrAaQxSpzPODoFuacEjnPmH7R3WpP9qXu59VSNihGezunjwibhpMZ_xA/exec";
+<ul class="nav-menu" id="menu">
+<li><a href="#home" class="nav-link">Home</a></li>
+<li><a href="#about" class="nav-link">About</a></li>
+<li><a href="#services" class="nav-link">Services</a></li>
+<li><a href="#projects" class="nav-link">Projects</a></li>
+<li><a href="#contact" class="nav-link">Contact</a></li>
+</ul>
 
-        const form = document.querySelector("form");
-        const submitBtn = document.querySelector("button");
+<div class="hamburger" onclick="toggleMenu()">
+<span></span>
+<span></span>
+<span></span>
+</div>
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
+</div>
+</nav>
 
-            // 🚫 Prevent double click
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Submitting...";
+<!-- HERO -->
+<section id="home" class="hero">
+<h1>Building Strong Foundations for the Future</h1>
+</section>
 
-            let genderInput = document.querySelector('input[name="gender"]:checked');
+<!-- ABOUT -->
+<section id="about" class="section fade-in">
+<h2 class="section-title">About Me</h2>
+<div class="about-grid">
+<div>
+<p>I am a professional Civil Engineer specializing in structural design and construction.</p>
+</div>
+<img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" alt="Engineer" class="profile-img">
+</div>
+</section>
 
-            let data = {
-                name: document.getElementById("name").value,
-                gender: genderInput ? genderInput.value : "",
-                phone: document.getElementById("phone").value,
-                email: document.getElementById("email").value,
-                collegename: document.getElementById("collegename").value,
-                stream: document.getElementById("stream").value,
-                percentage: document.getElementById("percentage").value
-            };
+<!-- SERVICES -->
+<section id="services" class="section fade-in">
+<h2 class="section-title">Services</h2>
+<div class="services">
+<div class="service-box">Structural Design</div>
+<div class="service-box">Site Supervision</div>
+<div class="service-box">Project Management</div>
+<div class="service-box">AutoCAD Drafting</div>
+</div>
+</section>
 
-            fetch(scriptURL, {
-                method: "POST",
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    alert("Form submitted successfully!");
-                    form.reset();
+<!-- PROJECTS -->
+<section id="projects" class="section fade-in">
+<h2 class="section-title">Projects</h2>
+<div class="projects-grid">
 
-                    // ✅ Enable again after success
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "Submit";
-                })
-                .catch(error => {
-                    alert("Error submitting form");
+<div class="project-item">
+<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e" alt="Project 1">
+</div>
 
-                    // ✅ Enable again if error
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "Submit";
-                });
-        });
-    </script>
+<div class="project-item">
+<img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231" alt="Project 2">
+</div>
 
+<div class="project-item">
+<img src="https://images.unsplash.com/photo-1513828583688-c52646db42da" alt="Project 3">
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact fade-in">
+<h2>Contact Me</h2>
+
+<form class="contact-form">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Message" required></textarea>
+<button type="submit">Send</button>
+</form>
+
+</section>
+
+<script>
+// MENU
+function toggleMenu(){
+    document.getElementById("menu").classList.toggle("active");
+}
+
+// SCROLL ANIMATION (optimized)
+const elements = document.querySelectorAll(".fade-in");
+
+function reveal(){
+    elements.forEach(el=>{
+        if(el.getBoundingClientRect().top < window.innerHeight - 100){
+            el.classList.add("show");
+        }
+    });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+
+// LOADER
+window.addEventListener("load", ()=>{
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    setTimeout(()=> loader.style.display="none",500);
+});
+</script>
 
 </body>
-
 </html>
