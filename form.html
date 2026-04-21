@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms - Lets learn it</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        form div {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #335;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        input[type="radio"]+label {
+            display: inline;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Form to apply for PUC Science</h1>
+
+    <form id="myForm">
+
+        <div>
+            <label for="name">Enter your Name</label>
+             <input type="text" id="name" name="name" placeholder="Enter your name" required autofocus>
+        </div>
+
+        <div>
+            <label>Gender</label>
+            <input type="radio" name="gender" value="male" required> Male
+            <input type="radio" name="gender" value="female" required> Female
+        </div>
+
+        <div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" pattern="[0-9]{10}" placeholder="Enter Your Phone">
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter Your Email" required>
+        </div>
+
+        <div>
+            <label for="school">School Name</label>
+            <input type="text" id="school" placeholder="Enter Your School Name ">
+        </div>
+
+        <div>
+            <label for="percentage">Percentage of SSLC</label>
+            <input type="number" id="percentage" placeholder="Enter Your Percentage" min="0" max="100">
+        </div>
+
+        <button type="submit" id="submitBtn">Submit</button>
+
+    </form>
+
+    <script>
+        
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzzL6undp2RKew3sHvxQNVv_r_hSU-wY9mNQjaFyEUEdU3hoOrYYn3cQyW7najcbau_iA/exec"; // paste your /exec URL
+
+            const form = document.getElementById("myForm");
+            const submitBtn = document.getElementById("submitBtn");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Submitting...";
+
+            // ✅ Get selected gender
+            const genderInput = document.querySelector('input[name="gender"]:checked');
+
+            // ✅ Create data object (MUST match Apps Script keys)
+            const data = {
+                name: document.getElementById("name").value,
+            gender: genderInput ? genderInput.value : "",
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            schoolname: document.getElementById("school").value,
+            percentage: document.getElementById("percentage").value
+    };
+
+            // ✅ Send data
+            fetch(scriptURL, {
+                method: "POST",
+            body: JSON.stringify(data),
+            mode: "no-cors"
+    })
+    .then(() => {
+                alert("✅ Form submitted successfully!");
+            form.reset();
+    })
+    .catch(() => {
+                alert("❌ Error submitting form");
+    })
+    .finally(() => {
+                submitBtn.disabled = false;
+            submitBtn.innerText = "Submit";
+    });
+});
+    
+    </script>
+
+</body>
+
+</html>
