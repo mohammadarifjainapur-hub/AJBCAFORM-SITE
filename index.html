@@ -1,387 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civil Engineer Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms - Lets learn it</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-:root{
-    --bg:#fff;
-    --text:#222;
-    --card:#f9f9f9;
-}
+        body {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-}
+        form {
+            background: white;
+            padding: 30px;
+            width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.6s ease-in-out;
+        }
 
-/* NAV */
-.navbar{
-    position:fixed;
-    width:100%;
-    background:#111;
-    padding:15px 5%;
-    z-index:1000;
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-.nav-container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    color:white;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.nav-menu{
-    display:flex;
-    gap:20px;
-    list-style:none;
-}
+        form div {
+            margin-bottom: 18px;
+        }
 
-.nav-link{
-    color:white;
-    text-decoration:none;
-    transition:0.3s;
-}
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #335;
+        }
 
-.nav-link:hover{
-    color:#f4b400;
-}
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
 
-/* HAMBURGER */
-.hamburger{
-    display:none;
-    flex-direction:column;
-    cursor:pointer;
-}
+        input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+        }
 
-.hamburger span{
-    width:25px;
-    height:3px;
-    background:white;
-    margin:4px 0;
-}
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
 
-/* HERO */
-.hero{
-    position:relative;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:white;
+        input[type="radio"]+label {
+            display: inline;
+            margin-right: 15px;
+            font-weight: normal;
+        }
 
-    background:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e') center/cover no-repeat;
-}
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.hero::before{
-    content:"";
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-}
-
-.hero h1{
-    position:relative;
-    z-index:1;
-    background:rgba(0,0,0,0.6);
-    padding:20px;
-    border-radius:10px;
-    font-size:clamp(1.5rem,4vw,3rem);
-}
-
-/* SECTION */
-.section{
-    padding:90px 20px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:40px;
-    font-size:2rem;
-}
-
-/* ABOUT */
-.about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-    align-items:center;
-}
-
-.profile-img{
-    width:100%;
-    border-radius:10px;
-}
-
-/* SERVICES */
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.service-box{
-    padding:20px;
-    background:var(--card);
-    border-radius:10px;
-    transition:0.3s;
-}
-
-.service-box:hover{
-    transform:translateY(-6px);
-}
-
-/* PROJECTS */
-.projects-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
-
-.project-item img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-/* SKILLS */
-.skill{margin-bottom:20px;}
-
-.bar{
-    background:#ddd;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.bar span{
-    display:block;
-    height:10px;
-    background:#f4b400;
-}
-
-/* CONTACT */
-.contact{
-    background:#222;
-    color:white;
-    text-align:center;
-}
-
-.contact-form{
-    max-width:500px;
-    margin:auto;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.contact-form input,
-.contact-form textarea{
-    padding:10px;
-    border:none;
-    border-radius:5px;
-}
-
-.contact-form button{
-    padding:12px;
-    background:#f4b400;
-    border:none;
-    cursor:pointer;
-}
-
-/* WHATSAPP */
-.whatsapp{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#25D366;
-    color:white;
-    padding:12px 14px;
-    border-radius:50%;
-    text-decoration:none;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-
-    .hamburger{
-        display:flex;
-    }
-
-    .nav-menu{
-        position:absolute;
-        top:60px;
-        left:-100%;
-        flex-direction:column;
-        width:100%;
-        background:#111;
-        text-align:center;
-        padding:20px 0;
-        transition:0.3s;
-    }
-
-    .nav-menu.active{
-        left:0;
-    }
-
-    .about-grid{
-        grid-template-columns:1fr;
-    }
-}
-</style>
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-<div class="nav-container">
+    <h1>Form to apply for PUC Science</h1>
 
-<h2>Civil Engineer</h2>
+    <form id="myForm">
 
-<ul class="nav-menu" id="menu">
-<li><a href="#home" class="nav-link">Home</a></li>
-<li><a href="#about" class="nav-link">About</a></li>
-<li><a href="#services" class="nav-link">Services</a></li>
-<li><a href="#projects" class="nav-link">Projects</a></li>
-<li><a href="#skills" class="nav-link">Skills</a></li>
-<li><a href="#contact" class="nav-link">Contact</a></li>
-</ul>
+        <div>
+            <label for="name">Enter your Name</label>
+             <input type="text" id="name" name="name" placeholder="Enter your name" required autofocus>
+        </div>
 
-<div class="hamburger" onclick="toggleMenu()">
-<span></span>
-<span></span>
-<span></span>
-</div>
+        <div>
+            <label>Gender</label>
+            <input type="radio" name="gender" value="male" required> Male
+            <input type="radio" name="gender" value="female" required> Female
+        </div>
 
-</div>
-</nav>
+        <div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" pattern="[0-9]{10}" placeholder="Enter Your Phone">
+        </div>
 
-<!-- HERO -->
-<section id="home" class="hero">
-<h1>Building Strong Foundations for the Future</h1>
-</section>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter Your Email" required>
+        </div>
 
-<!-- ABOUT -->
-<section id="about" class="section">
-<h2 class="section-title">About Me</h2>
-<div class="about-grid">
-<div>
-<p>I am a professional Civil Engineer specializing in structural design and construction.</p>
-</div>
-<img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" class="profile-img">
-</div>
-</section>
+        <div>
+            <label for="school">School Name</label>
+            <input type="text" id="school" placeholder="Enter Your School Name ">
+        </div>
 
-<!-- SERVICES -->
-<section id="services" class="section">
-<h2 class="section-title">Services</h2>
-<div class="services">
-<div class="service-box">Structural Design</div>
-<div class="service-box">Site Supervision</div>
-<div class="service-box">Project Management</div>
-<div class="service-box">AutoCAD Drafting</div>
-</div>
-</section>
+        <div>
+            <label for="percentage">Percentage of SSLC</label>
+            <input type="number" id="percentage" placeholder="Enter Your Percentage" min="0" max="100">
+        </div>
 
-<!-- PROJECTS -->
-<section id="projects" class="section">
-<h2 class="section-title">Projects</h2>
-<div class="projects-grid">
-<div class="project-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e"></div>
-<div class="project-item"><img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231"></div>
-<div class="project-item"><img src="https://images.unsplash.com/photo-1513828583688-c52646db42da"></div>
-</div>
-</section>
+        <button type="submit" id="submitBtn">Submit</button>
 
-<!-- SKILLS -->
-<section id="skills" class="section">
-<h2 class="section-title">Skills</h2>
+    </form>
 
-<div class="skill">AutoCAD
-<div class="bar"><span style="width:90%"></span></div>
-</div>
+    <script>
+        
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzzL6undp2RKew3sHvxQNVv_r_hSU-wY9mNQjaFyEUEdU3hoOrYYn3cQyW7najcbau_iA/exec"; // paste your /exec URL
 
-<div class="skill">Structural Design
-<div class="bar"><span style="width:85%"></span></div>
-</div>
+            const form = document.getElementById("myForm");
+            const submitBtn = document.getElementById("submitBtn");
 
-<div class="skill">Project Management
-<div class="bar"><span style="width:80%"></span></div>
-</div>
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
 
-</section>
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Submitting...";
 
-<!-- CONTACT -->
-<section id="contact" class="section contact">
-<h2>Contact Me</h2>
+            // ✅ Get selected gender
+            const genderInput = document.querySelector('input[name="gender"]:checked');
 
-<form class="contact-form" id="contactForm">
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="tel" name="phone" placeholder="Your Phone" required>
-<input type="email" name="email" placeholder="Your Email" required>
-<textarea name="message" placeholder="Message" required></textarea>
-<button type="submit">Send</button>
-</form>
+            // ✅ Create data object (MUST match Apps Script keys)
+            const data = {
+                name: document.getElementById("name").value,
+            gender: genderInput ? genderInput.value : "",
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            schoolname: document.getElementById("school").value,
+            percentage: document.getElementById("percentage").value
+    };
 
-</section>
-
-<a href="https://wa.me/917618731273" class="whatsapp">💬</a>
-
-<script>
-// MENU
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
-}
-
-document.querySelectorAll(".nav-link").forEach(link=>{
-link.addEventListener("click",()=>{
-document.getElementById("menu").classList.remove("active");
+            // ✅ Send data
+            fetch(scriptURL, {
+                method: "POST",
+            body: JSON.stringify(data),
+            mode: "no-cors"
+    })
+    .then(() => {
+                alert("✅ Form submitted successfully!");
+            form.reset();
+    })
+    .catch(() => {
+                alert("❌ Error submitting form");
+    })
+    .finally(() => {
+                submitBtn.disabled = false;
+            submitBtn.innerText = "Submit";
+    });
 });
-});
-
-// GOOGLE SHEET
-const scriptURL="https://script.google.com/macros/s/AKfycbxe7-OXZuvJxlPKDIw3cfbAaloMY0q3MQoLlpzEMh0Z2U8a8Z9GltRmmm0Xu6pnzF2c/exec";
-const form=document.getElementById("contactForm");
-
-form.addEventListener("submit",async(e)=>{
-e.preventDefault();
-
-const btn=form.querySelector("button");
-btn.disabled=true;
-btn.innerText="Sending...";
-
-const formData=new FormData(form);
-
-try{
-const res=await fetch(scriptURL,{method:"POST",body:formData});
-const text=await res.text();
-
-if(text.includes("Success")){
-alert("Message Sent!");
-form.reset();
-}else{
-alert("Error");
-}
-}catch{
-alert("Network error");
-}
-
-btn.disabled=false;
-btn.innerText="Send";
-});
-</script>
+    
+    </script>
 
 </body>
+
 </html>
